@@ -1,27 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "main.h"
 #define BUFFSIZE 1024
+#define STR_DELIM " \t\r\n\a"
 
 /**
- * read_textfile - read a txt file.
- * @filename: File to be read.
- * @letters: number of characters to be read.
+ * print_prompt - promts the user for command line argument.
  * Return: decimal value
  */
 
 char *read_line(void);
+char **split_str(char *buffer);
 
 
 void print_prompt(void)
 {
 	char *buffer;
+	char **str_token;
 
 	while(1)
 	{
 		printf("#cisfun$: ");
 		buffer = read_line();
-		printf("%s\n", buffer);
+		str_token = split_str(buffer);
+
+		while (str_token != NULL)
+		{
+			printf("%s\n", *str_token);
+
+			str_token++;
+		}
 	}
 
 	free(buffer);
@@ -66,4 +75,46 @@ char *read_line(void)
 		}
 	}
 return (buffer);
+}
+
+char **split_str(char *buffer)
+{
+	int mem_position = 0;
+	int buff_size = BUFFSIZE;
+	char *token;
+
+	char **str_token = malloc(buff_size * sizeof(char *));
+
+	if (!str_token)
+	{
+		printf("allocation error\n");
+		exit(EXIT_FAILURE);
+	}
+
+	token = strtok(buffer, STR_DELIM);
+
+	while (token != NULL)
+	{
+		str_token[mem_position] = token;
+		mem_position++;
+
+		if (mem_position >= buff_size)
+		{
+			buff_size += BUFFSIZE;
+
+			str_token = realloc(str_token, (sizeof(char *) * buff_size));
+
+			if (str_token == NULL)
+			{
+				printf("failed to allocate memory\n");
+				exit(EXIT_FAILURE);
+			}
+		}
+
+		token = strtok(NULL, STR_DELIM);
+	}
+
+	str_token[mem_position] = '\0';
+
+return (str_token);
 }
