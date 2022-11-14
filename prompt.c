@@ -1,12 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+<<<<<<< HEAD
 #include <unistd.h>
 #include <sys/wait.h>
 #include "main.h"
 #define BUFFSIZE 1024
 #define STR_DELIM " \t\r\n\a"
 extern char **environ;
+=======
+#include "main.h"
+#define BUFFSIZE 1024
+#define STR_DELIM " \t\r\n\a"
+>>>>>>> 593f5f812e483b7e1b4dcfe67ec318659b00c8ed
 
 /**
  * print_prompt - promts the user for command line argument.
@@ -15,21 +21,37 @@ extern char **environ;
 
 char *read_line(void);
 char **split_str(char *buffer);
+<<<<<<< HEAD
 int execute_cmd(char **str_token);
+=======
+>>>>>>> 593f5f812e483b7e1b4dcfe67ec318659b00c8ed
 
 
 void print_prompt(void)
 {
 	char *buffer;
 	char **str_token;
+<<<<<<< HEAD
 	int status;
+=======
+>>>>>>> 593f5f812e483b7e1b4dcfe67ec318659b00c8ed
 
 	while(status)
 	{
 		printf("#cisfun$: ");
 		buffer = read_line();
 		str_token = split_str(buffer);
+<<<<<<< HEAD
 		status = execute_cmd(str_token);
+=======
+
+		while (str_token != NULL)
+		{
+			printf("%s\n", *str_token);
+
+			str_token++;
+		}
+>>>>>>> 593f5f812e483b7e1b4dcfe67ec318659b00c8ed
 	}
 
 	free(buffer);
@@ -118,6 +140,7 @@ char **split_str(char *buffer)
 
 return (str_token);
 }
+<<<<<<< HEAD
 
 int execute_cmd(char **str_token)
 {
@@ -150,3 +173,5 @@ int execute_cmd(char **str_token)
 
 return (status);
 }
+=======
+>>>>>>> 593f5f812e483b7e1b4dcfe67ec318659b00c8ed
